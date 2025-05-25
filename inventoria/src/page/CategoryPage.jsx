@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CategoryDetails from '../component/CategoryDetails'
+import AddCategory from '../component/AddCategory'
+import { Link } from 'react-router'
 
 function CategoryPage() {
 
@@ -7,7 +9,7 @@ function CategoryPage() {
 
     function fun(data){
          
-        return<CategoryDetails category={data}/>
+        return<CategoryDetails key={data._id} category={data}/>
     }
 
     useEffect(
@@ -43,12 +45,14 @@ function CategoryPage() {
       console.log("category",category)
   return (
     <div>CategoryPage
-        <div>
+      <Link to={"/AddCategory"}>Add Category</Link>
+
+       
             {
                 category.map(fun)
             }
         </div>
-    </div>
+  
   )
 }
 

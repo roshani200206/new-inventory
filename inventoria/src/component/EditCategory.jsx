@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router'
 
 function EditCategory() {
+    const {cid} = useParams()
+    console.log("category ko id",cid)
     const[name,setName]=useState("")
 
     function handleNameChange(e){
@@ -15,6 +18,8 @@ function EditCategory() {
             name
         }
         console.log("form submitting",payload)
+
+        
         
     }
   return (

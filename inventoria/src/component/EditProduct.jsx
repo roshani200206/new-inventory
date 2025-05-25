@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router'
 
 function EditProduct() {
-
+const {pid} =useParams()
     const[name,setName]=useState("")
     const[price,setPrice]=useState("")
     const[stock,setStock]=useState("")

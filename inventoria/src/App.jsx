@@ -16,6 +16,8 @@ import EditProduct from './component/EditProduct'
 import AddCategory from './component/AddCategory'
 import EditCategory from './component/EditCategory'
 import CategoryPage from './page/CategoryPage'
+import Layout from './component/Layout'
+import ProtectedRoute from './component/protectedRoute'
 
 
 
@@ -28,7 +30,10 @@ function App() {
       
       <BrowserRouter>
       <Routes>
-        <Route path='/' element ={<PractiseNav/>}/>
+        <Route path='/login' element={<LoginPage/>}/>
+        <Route element = {<ProtectedRoute/>}>
+        <Route path='/' element ={<Layout/>}>
+
         <Route path='/test'  element={<Multiply/>}/>
         <Route path='/add'  element={<Add/>}/>
         <Route path='/product-page'  element={<ProductPage/>}/>
@@ -37,10 +42,12 @@ function App() {
         <Route path='/SignupPage' element={<SignupPage/>}/>
         <Route path='/LoginPage' element={<LoginPage/>}/>
         <Route path='/AddProduct123' element={<AddProduct123/>}/>
-        <Route path='/EditProduct' element={<EditProduct/>}/>
+        <Route path='/EditProduct/:pid' element={<EditProduct/>}/>
         <Route path='/AddCategory' element={<AddCategory/>}/>
-        <Route path='/EditCategory' element={<EditCategory/>}/>
+        <Route path='/EditCategory/:cid' element={<EditCategory/>}/>
         <Route path='/CategoryPage' element={<CategoryPage/>}/>
+          </Route>
+          </Route>
 
       </Routes>
       </BrowserRouter>

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router';
 
 function CategoryDetails({category}) {
     console.log(category)
@@ -41,6 +42,7 @@ function CategoryDetails({category}) {
         }}>
 
         {category.name}
+        <Link to={"/EditCategory/"+category._id} >EditCategory</Link>
     <button onClick={handleDelete}>delete</button>
         </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ProductDetails from '../component/ProductDetails'
+import { Link } from 'react-router'
 
 
 
@@ -9,7 +10,7 @@ function ProductPage() {
 
 
     function fun (data){
- return <ProductDetails product={data}/>
+       return <ProductDetails key={data._id} product={data}/>
     }
 
     useEffect(
@@ -17,12 +18,22 @@ function ProductPage() {
 
        async function getAllProducts (){
         console.log("fucntion working")
-            const res = await fetch("https://fakestoreapi.com/products",
+            const res = await fetch("http://localhost:3000/api/product",{
+            method: "GET",
+            headers: {
+
+                "content-type": "application/json",
+            },
+
+            }
                 
-            )
+            );
+              if (!res.ok) {
+                throw new Error('HTTP error! status: ${res.status}');
+              }
             const data = await res.json()
-            // console.log("data fetched",data)
-            setProducts(data)
+             console.log(data.data)
+            setProducts(data.data)
         }
         console.log("outside fun")
 
@@ -36,13 +47,14 @@ function ProductPage() {
     console.log("products",products)
   return (
     <div>ProductPage
+
+      <Link to="/AddProduct123">Add Product</Link>
         <div>
+          
 
        {
-           products.map(
-
-        fun
-        )
+           products.map(fun)
+           
         }
         </div>
     </div>
