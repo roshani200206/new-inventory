@@ -27,7 +27,7 @@ function AddProduct123() {
         setCategory(e.target.value)
      }
 
-     function handlesubmit(e){
+     async function handlesubmit(e){
         e.preventDefault()
 
         const payload={
@@ -38,6 +38,9 @@ function AddProduct123() {
         }
 
         console.log("form submitting",payload)
+        const res = await fetch("http://localhost:3000/api/product/create", {
+         method: "POST",
+        })
      }
   return (
     <div>AddProduct123

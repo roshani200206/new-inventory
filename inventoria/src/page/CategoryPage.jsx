@@ -15,11 +15,21 @@ function CategoryPage() {
 
             async function getAllCategory() {
                 console.log("function working")
-                const res = await fetch("https://fakestoreapi.com/category",
-
-                )
+              const res = await fetch("http://localhost:3000/api/categories", {
+  method: "GET", // or "POST", "PUT", etc.
+  headers: {
+    "Content-Type": "application/json",
+    // Add any authorization tokens if needed
+    // "Authorization": "Bearer your_token_here"
+  },
+  // body: JSON.stringify(data) // only for POST/PUT
+});
+                if (!res.ok) {
+  throw new Error(`HTTP error! status: ${res.status}`);
+}
                 const data = await res.json()
-                setCategory(data)
+                console.log(data.data)
+                setCategory(data.data)
             }
 
             console.log("outside fun")

@@ -8,15 +8,34 @@ function AddCategory() {
         setName(e.target.value)
      }
 
-     function handlesubmit(e){
-        e.preventDefault()
+  async function handlesubmit(e) {
+  e.preventDefault();
 
-        const payload={
+  const payload = { name };
 
-            name
-        }
-         console.log("form submitting",payload)
-     }
+  try {
+    const res = await fetch("http://localhost:3000/api/category/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert("Error: " + errorData.message);
+      return;
+    }
+
+    const data = await res.json();
+    alert("Category created: " + data.data.name);
+    setName(""); // Reset the form
+  } catch (err) {
+    console.error("Submit error:", err);
+    alert("An unexpected error occurred.");
+  }
+}
   return (
     <div>AddCategory
 
