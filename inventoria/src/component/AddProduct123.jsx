@@ -10,7 +10,7 @@ function AddProduct123() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const payload = { name, price, stock, category };
+    const payload = { name, price:Number(price), stock, category };
 
     try {
       const res = await fetch("http://localhost:3000/api/product/create", {
@@ -26,6 +26,7 @@ function AddProduct123() {
       }
 
       const data = await res.json();
+      console.log(data)
       alert("Product created: " + data.data.name);
       setName("");
       setPrice("");
@@ -33,7 +34,7 @@ function AddProduct123() {
       setCategory("");
     } catch (err) {
       console.error("Submit error:", err);
-      alert("An unexpected error occurred.");
+    
     }
   }
 
@@ -71,7 +72,7 @@ function AddProduct123() {
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="">Select a category</option>
           {categories.map((cat) => (
-            <option key={cat._id} value={cat.name}>
+            <option key={cat._id} value={cat._id}>
               {cat.name}
             </option>
           ))}

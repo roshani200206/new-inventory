@@ -31,6 +31,7 @@ function EditCategory() {
     }
 
     const data = await res.json();
+    
     alert("Category updated: " + data.data.name);
     setName(""); // Reset the form
   } catch (err) {

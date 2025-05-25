@@ -35,13 +35,13 @@ const {pid} =useParams()
 
          const payload={
          name,
-        price,
-        stock,
+        price:Number(price),
+        stock:Number(stock),
         category }
 
         try {
-    const res = await fetch("http://localhost:3000/api/product/update"+pid, {
-      method: "POST",
+    const res = await fetch("http://localhost:3000/api/product/update/"+pid, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -55,7 +55,7 @@ const {pid} =useParams()
     }
 
     const data = await res.json();
-    alert("product created: " + data.data.name);
+    alert("product updated: " + data.data.name);
     setName(""); 
     setCategory("")
     setPrice("")
@@ -103,7 +103,7 @@ const {pid} =useParams()
         <select value={category} onChange={handleCategoryChange}>
           <option value="">Select a category</option>
           {categories.map((cat) => (
-            <option key={cat._id} value={cat.name}>
+            <option key={cat._id} value={cat._id}>
               {cat.name}
             </option>
           ))}
