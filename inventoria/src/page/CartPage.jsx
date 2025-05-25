@@ -21,10 +21,10 @@ const CartPage = () => {
 
     const orderData = {
       total: total.toFixed(2),
-      customer: customerId,
+     
       payment_type: "CASH", // or "CARD"
-      status: "PENDING",
-      is_paid: false,
+      status: "CONFIRMED",
+      is_paid: true,
       products: cartItems.map(item => ({
         product: item.product._id,
         quantity: item.quantity
@@ -32,7 +32,7 @@ const CartPage = () => {
     };
 
     try {
-      const response = await fetch("/api/orders", {
+      const response = await fetch("http://localhost:3000/api/order/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

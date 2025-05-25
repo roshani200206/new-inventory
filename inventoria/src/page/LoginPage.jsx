@@ -1,44 +1,39 @@
-//user name rw password 
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-    const [username,setUsername]=useState("")
-    const [password,setPassword]=useState("")
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-
-    function handleUsernameChange(e){
-        console.log("value",e.target.value)
-        setUsername(e.target.value)
+    try {
+      const data = await login(email, password);
+      alert("Logged in as: " + data.data.email);
+      navigate("/");  // Use navigate here instead of <Navigate />
+    } catch (err) {
+      alert("Login failed: " + err.message);
     }
-
-     function handlePasswordChange(e){
-        console.log("value",e.target.value)
-        setPassword(e.target.value)
-    }
-      function handleSubmit(e){
-        e.preventDefault()
-        const payload = {
-           name: username,
-           pwd:password
-        }
-        console.log("form submitting",payload)
-      }
-
+  }
 
   return (
-    <div>LoginPage
-        <form onSubmit={handleSubmit}>
-            <label>Username</label>
-            <input type="text" value={username} onChange={handleUsernameChange} />
+    <div>
+      <h2>Login Page</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Email</label>
+        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
 
-            <label>password</label>
-            <input type="password" value={password} onChange={handlePasswordChange} />
+        <label>Password</label>
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-            <button type ='submit'>Submit</button>
-        </form>
+        <button type="submit">Submit</button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default LoginPage
+export default LoginPage;

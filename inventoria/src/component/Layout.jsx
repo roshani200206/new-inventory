@@ -18,6 +18,7 @@ function Layout() {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f9f9f9;
             color: #333;
+            width:100%
           }
 
           .layout-container {

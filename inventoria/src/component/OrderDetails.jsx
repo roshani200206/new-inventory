@@ -1,46 +1,39 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router';
 
-function OrderDetails(order) {
-  console.log(order)
+function OrderDetails({ order, onDelete }) {
 
-   async function handleView() 
-   {
-    console.log(order._id)
 
-    try{
-        const res = await fetch("http://localhost:3000/api/order/view/"+order._id,{
-          method:"VIEW",
-          headers:{
+  const handleDelete = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/order/delete/${order._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-            "content-type":"application/json",
-          },
-        });
-        if(!res.ok){
-           const errorData = await res.json();
-           alert("Error:"+errorData.message);
-           return;
-        }
-         alert("order view: " +order.name);
-    }
-      catch(err) {
-         alert("an unexpected error occurred.");
-
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert("Error: " + errorData.message);
+        return;
       }
-    
-   }
-  return (
-    <div>
-       <div style={{
-          display:"flex",
-          gap:"20px"
 
-       }}>
-        {order.name}
-         <button onClick={handleView}>view</button>
-       </div>
-       </div>
-  )
+      alert("Order deleted!");
+      onDelete(order._id); // Notify parent to remove from UI
+    } catch (err) {
+      alert("An unexpected error occurred.");
+      console.error(err);
+    }
+  };
+
+  return (
+    <div style={{ display: "flex", gap: "20px", marginBottom: "10px" }}>
+      <span>{order._id}</span>
+      <Link  to={"/order/view/"+order._id}>View</Link>
+      <button onClick={handleDelete}>Delete</button>
+    </div>
+  );
 }
 
-export default OrderDetails
+export default OrderDetails;

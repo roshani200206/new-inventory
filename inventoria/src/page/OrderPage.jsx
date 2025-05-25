@@ -1,59 +1,48 @@
-import React, { useEffect, useState } from 'react'
-import OrderDetails from '../component/OrderDetails'
-
+import React, { useEffect, useState } from 'react';
+import OrderDetails from '../component/OrderDetails';
 
 function OrderPage() {
-     const [order,setOrder]= useState([])
+  const [orders, setOrders] = useState([]);
 
-    
+  useEffect(() => {
+    async function getAllOrders() {
+      try {
+        const res = await fetch("http://localhost:3000/api/order", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-      
-
-        function fun(data){
-
-            return <OrderDetails key ={data._id} order={data}/>
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
         }
-         useEffect(
-            ()=> {
 
-                async function getAllOrder() {
-                    console.log("function working")
-                    const res = await fetch("http://localhost:3000/api/order",{
-                        method:"GET",
-                        headers: {
+        const data = await res.json();
+        setOrders(data.data);
+      } catch (err) {
+        console.error(err);
+        alert("Failed to fetch orders.");
+      }
+    }
 
-                            "content-type":"application/json",
-                        },
-                    });
+    getAllOrders();
+  }, []);
 
-                    if (!res.ok) {
-                         throw new Error('HTTP error! status: ${res.status}');
-                    }
-                     const data = await res.json()
-                     console.log(data.data)
-                     setOrder(data.data)
-                    
-                }
-                  console.log("outside fun")
-                  getAllOrder()
-            },
-            []
-         )
-          console.log("above order")
+  const handleDelete = (idToRemove) => {
+    setOrders(prev => prev.filter(order => order._id !== idToRemove));
+  };
 
-          console.log("order",order)
-      
   return (
-    <div>OrderPage
-         
-        <div>
-            {
-                order.map(fun)
-            }
+    <div>
+      <h2>Order Page</h2>
+      <div>
+        {orders.map((order) => (
+          <OrderDetails key={order._id} order={order} onDelete={handleDelete} />
+        ))}
+      </div>
     </div>
-    </div>
-  )
-
+  );
 }
 
-export default OrderPage
+export default OrderPage;

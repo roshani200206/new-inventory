@@ -21,6 +21,8 @@ import ProtectedRoute from './component/protectedRoute'
 import OrderPage from './page/OrderPage'
 import Overview from './page/OverViewPage'
 import CartPage from './page/CartPage'
+import PublicRoute from './component/publicRoute'
+import OrderViewPage from './page/OrderViewPage'
 
 
 
@@ -33,8 +35,15 @@ function App() {
       
       <BrowserRouter>
       <Routes>
+        <Route element = {<PublicRoute/>}>
+        
+      
         <Route path='/login' element={<LoginPage/>}/>
+
+        </Route>
+
         <Route element = {<ProtectedRoute/>}>
+        
         <Route path='/' element ={<Layout/>}>
         <Route index element={<Overview/>}/>
 
@@ -52,6 +61,8 @@ function App() {
         <Route path='/CategoryPage' element={<CategoryPage/>}/>
         <Route path='/OrderPage' element={<OrderPage/>}/> 
         <Route path='/cartPage' element={<CartPage/>}/> 
+        <Route path='/order/view/:oid' element={<OrderViewPage/>}/> 
+
 
 
           </Route>
