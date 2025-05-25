@@ -3,6 +3,7 @@ import cors from "cors"
 import cookieParser from 'cookie-parser'
 import productRouter from "./routes/product.js"
 import categoryRouter from "./routes/category.js"
+import orderRouter from "./routes/order.js"
 
 
 const app = express()
@@ -19,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.use(productRouter,categoryRouter)
+app.use(productRouter,categoryRouter,orderRouter)
 
 
 export default app
