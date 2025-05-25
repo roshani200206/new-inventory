@@ -15,6 +15,7 @@ import AddProduct123 from './component/AddProduct123'
 import EditProduct from './component/EditProduct'
 import AddCategory from './component/AddCategory'
 import EditCategory from './component/EditCategory'
+import CategoryPage from './page/CategoryPage'
 
 
 
@@ -31,6 +32,7 @@ function App() {
         <Route path='/test'  element={<Multiply/>}/>
         <Route path='/add'  element={<Add/>}/>
         <Route path='/product-page'  element={<ProductPage/>}/>
+
         <Route path='/DemoPage' element={<DemoPage/>}/>
         <Route path='/SignupPage' element={<SignupPage/>}/>
         <Route path='/LoginPage' element={<LoginPage/>}/>
@@ -38,7 +40,7 @@ function App() {
         <Route path='/EditProduct' element={<EditProduct/>}/>
         <Route path='/AddCategory' element={<AddCategory/>}/>
         <Route path='/EditCategory' element={<EditCategory/>}/>
-        
+        <Route path='/CategoryPage' element={<CategoryPage/>}/>
 
       </Routes>
       </BrowserRouter>
