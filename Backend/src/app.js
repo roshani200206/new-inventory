@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import productRouter from "./routes/product.js"
 import categoryRouter from "./routes/category.js"
 import orderRouter from "./routes/order.js"
+import userRouter from "./routes/user.js"
 
 
 const app = express()
@@ -14,13 +15,14 @@ app.use(cors({
   
 }))
 
+
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.use(productRouter,categoryRouter,orderRouter)
+app.use(productRouter,categoryRouter,orderRouter,userRouter)
 
 
 export default app

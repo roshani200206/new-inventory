@@ -18,20 +18,29 @@ const orderSchema = new mongoose.Schema({
      },
      payment_type:{
         type:String,
+        enum:["CASH","CARD"],
         required:true
      },
      status:{
         type:String, 
+         enum:["PENDING","CONFIRMED","CANCELLED"],
         required:true
      },
      is_paid:{
-        type:String,
+        type:Boolean,
         required:true
      },
-     Product:{
+     products:[
+    {  product:{
         type:Schema.Types.ObjectId,
         ref:"Product"
+     },
+     quantity:{
+      type:Number,
+      default:1
      }
+   }
+   ]
 
 })
 const order = mongoose.model("order",orderSchema)
