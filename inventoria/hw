@@ -1,0 +1,14 @@
+component = > 
+AddProduct = > fields = > name , price , stock , category
+EditProduct =>same as add product
+
+
+
+AddCategory => name
+EditCatrgory => name
+
+
+page => create => CategoryPage same as productPage
+
+
+
