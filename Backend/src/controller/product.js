@@ -32,7 +32,7 @@ export async function createProduct(req,res){
 export async function updateProduct(req,res){
     try {
         const {name,price,stock,category} =req.body
-        const pid =req.params
+        const pid =req.params.pid
 
         if(!name ||!price ||!stock){
             res.status(400).json({
@@ -68,7 +68,7 @@ export async function updateProduct(req,res){
 }
 export async function deleteProduct(req,res) {
     try{
-        const pid = req.params
+        const pid = req.params.pid
         const tobedeletedProduct = await Product.findByIdAndDelete(pid)
          res.status(400).json({
             message:"sucess data deleted",
@@ -80,7 +80,7 @@ export async function deleteProduct(req,res) {
     }
     
 }
-export async function getallProduct(){
+export async function getallProduct(req,res){
     try {
         const allProduct = await Product.find()
         res.status(200).json({
@@ -94,9 +94,9 @@ export async function getallProduct(){
         
     }
 }
-async function getProductByID(){
+export async function getProductByID(req,res){
     try {
-        const pid =req.params
+        const pid =req.params.pid
         const singleProduct= await Product.findById(pid)
         res.status(200).json({
             message:"success to get all data",

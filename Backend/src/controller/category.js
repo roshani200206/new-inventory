@@ -4,6 +4,7 @@ export async function createCategory(req,res){
     try {
 
         const {name}=req.body
+
         if(!name){
              res.status(400).json({
             message:"name is not passed"
@@ -68,10 +69,10 @@ async function createCategory(req,res) {
 export async function updateCategory (req,res){
  try {
        const {name}=req.body
-       const cid = req.params
+       const cid = req.params.cid
    
        if(!name){
-           res.status(400).json({
+          return res.status(400).json({
                message:"name is required"
            })
        }
@@ -81,7 +82,7 @@ export async function updateCategory (req,res){
        })
    
        if(!tobeUpdateCategory){
-           res.status(400).json({
+         return  res.status(400).json({
                message:"failed to update"
            })
        }
@@ -100,7 +101,7 @@ export async function updateCategory (req,res){
  export async function deleteCategory(req,res) {
     try {
        
-        const cid =req.params
+        const cid =req.params.cid
       
         const tobedeletedCategory = await Category.findByIdAndDelete(cid)
           res.status(200).json({
@@ -117,7 +118,7 @@ export async function updateCategory (req,res){
     
  
  
-   export  async function getAllCategory(){
+   export  async function getAllCategory(req,res){
         try {
 
             const allCategory =  await Category.find()
@@ -135,9 +136,9 @@ export async function updateCategory (req,res){
         }
     }
 
-   export  async function getCategoryById (){
+   export  async function getCategoryById (req,res){
         try {
-            const cid = req.params
+            const cid = req.params.cid
             const singleCategory = await Category.findById(cid)
   res.status(200).json({
                 message:"success to get  data ",
