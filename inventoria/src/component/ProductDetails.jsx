@@ -1,49 +1,45 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router';
+import { useCart } from '../context/orderItemContext';
 
-function ProductDetails({product}) {
-  console.log(product)
 
-   async function handleDelete()
-    {
-       console.log(product._id)
+function ProductDetails({ product }) {
+  const { addToCart } = useCart();
 
-     try{
-      const res = await fetch("https://localhost:3000/api/product/delete/"+product._id,{
-
-        method:"DELETE",
-        headers:{
-           "content-type":"application/json",
-
+  async function handleDelete() {
+    try {
+      const res = await fetch("http://localhost:3000/api/product/delete/" + product._id, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
         },
       });
-        
-       if(!res.ok){
-         const errorData = await res.json();
-         alert("Error:"+ errorData.message);
-         return;
-       }
 
-        alert("product deleted: " +product.name);
-     }  
-      catch(err) {
-         alert("an unexpected error occured.");
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert("Error: " + errorData.message);
+        return;
       }
-    
-   }
+
+      alert("Product deleted: " + product.name);
+    } catch (err) {
+      alert("An unexpected error occurred.");
+    }
+  }
+
+  const handleAddToCart = () => {
+    addToCart(product, 1); // ✅ add 1 quantity of this product
+    alert(`${product.name} added to cart.`);
+  };
+
   return (
-    <div>
-        <div style={{
-          display:"flex",
-          gap:"20px"
-        }}>     
-      
-      {product.name}
-      <Link to={"/EditProduct/"+product._id}>Edit </Link>
-      <button onClick={handleDelete}>delete</button>
-    </div>      
+    <div style={{ display: "flex", gap: "20px", marginBottom: "10px", alignItems: "center" }}>
+      <div>{product.name}</div>
+      <Link to={"/EditProduct/" + product._id}>Edit</Link>
+      <button onClick={handleDelete}>Delete</button>
+      <button onClick={handleAddToCart}>Add to Cart</button> {/* ✅ New button */}
     </div>
-  )
+  );
 }
 
-export default ProductDetails
+export default ProductDetails;

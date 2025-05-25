@@ -21,10 +21,9 @@ function CategoryPage() {
   method: "GET", // or "POST", "PUT", etc.
   headers: {
     "Content-Type": "application/json",
-    // Add any authorization tokens if needed
-    // "Authorization": "Bearer your_token_here"
+  
   },
-  // body: JSON.stringify(data) // only for POST/PUT
+  
 });
                 if (!res.ok) {
   throw new Error(`HTTP error! status: ${res.status}`);

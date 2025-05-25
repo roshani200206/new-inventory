@@ -18,6 +18,9 @@ import EditCategory from './component/EditCategory'
 import CategoryPage from './page/CategoryPage'
 import Layout from './component/Layout'
 import ProtectedRoute from './component/protectedRoute'
+import OrderPage from './page/OrderPage'
+import Overview from './page/OverViewPage'
+import CartPage from './page/CartPage'
 
 
 
@@ -33,6 +36,7 @@ function App() {
         <Route path='/login' element={<LoginPage/>}/>
         <Route element = {<ProtectedRoute/>}>
         <Route path='/' element ={<Layout/>}>
+        <Route index element={<Overview/>}/>
 
         <Route path='/test'  element={<Multiply/>}/>
         <Route path='/add'  element={<Add/>}/>
@@ -46,6 +50,10 @@ function App() {
         <Route path='/AddCategory' element={<AddCategory/>}/>
         <Route path='/EditCategory/:cid' element={<EditCategory/>}/>
         <Route path='/CategoryPage' element={<CategoryPage/>}/>
+        <Route path='/OrderPage' element={<OrderPage/>}/> 
+        <Route path='/cartPage' element={<CartPage/>}/> 
+
+
           </Route>
           </Route>
 

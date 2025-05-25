@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
 function EditProduct() {
 const {pid} =useParams()
     const[name,setName]=useState("")
     const[price,setPrice]=useState("")
-    const[stock,setStock]=useState("")
+    const[stock,setStock]=useState(0)
     const[category,setCategory]=useState("")
+
+      const [categories, setCategories] = useState([]);
 
     function handleNameChange(e){
         console.log("value",e.target.value)
@@ -28,40 +30,87 @@ const {pid} =useParams()
         setCategory(e.target.value)
     }
 
-    function handlesubmit(e){
+    async function handlesubmit(e){
         e.preventDefault()
 
          const payload={
          name,
         price,
         stock,
-        category
+        category }
+
+        try {
+    const res = await fetch("http://localhost:3000/api/product/update"+pid, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert("Error: " + errorData.message);
+      return;
     }
-     console.log("form submitted",payload)
+
+    const data = await res.json();
+    alert("product created: " + data.data.name);
+    setName(""); 
+    setCategory("")
+    setPrice("")
+    setStock(0)
+  } catch (err) {
+    console.error("Submit error:", err);
+    alert("An unexpected error occurred.");
+  }
+  
 }
+
+
+  useEffect(() => {
+     async function getAllCategory() {
+       try {
+         const res = await fetch("http://localhost:3000/api/categories");
+         if (!res.ok) {
+           throw new Error(`HTTP error! status: ${res.status}`);
+         }
+         const data = await res.json();
+         setCategories(data.data);
+       } catch (err) {
+         console.error("Error fetching categories:", err);
+       }
+     }
+ 
+     getAllCategory();
+   }, []);
+
   return (
     <div>EditProduct
 
 
-         <form onSubmit={handlesubmit}>
-                
+             <form onSubmit={handlesubmit}>
+        <label>Name:</label>
+        <input type="text" value={name} onChange={handleNameChange} />
 
-                <label>Name:</label>
-                <input type='text' value={name} onChange={handleNameChange}/>
+        <label>Price:</label>
+        <input type="text" value={price} onChange={handlePriceChange} />
 
-                <label>Price:</label>
-                <input type='text' value={price} onChange={handlePriceChange}/>
+        <label>Stock:</label>
+        <input type="number" value={stock} onChange={handleStockChange} />
 
-                <label>Stock:</label>
-                <input type='text' value={stock} onChange={handleStockChange}/>
+        <label>Category:</label>
+        <select value={category} onChange={handleCategoryChange}>
+          <option value="">Select a category</option>
+          {categories.map((cat) => (
+            <option key={cat._id} value={cat.name}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
 
-                <label>Category:</label>
-                <input type='text' value={category} onChange={handleCategoryChange}/>
-
-                <button type='submit'>Submit</button>
-
-
-         </form>
+        <button type="submit">Submit</button>
+      </form>
     </div>
   )
 }

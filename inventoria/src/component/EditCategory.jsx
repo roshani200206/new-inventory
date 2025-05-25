@@ -11,13 +11,32 @@ function EditCategory() {
         setName(e.target.value)
     }
 
-    function handlesubmit(e){
+    async function handlesubmit(e){
         e.preventDefault()
+ const payload = { name };
 
-        const payload={
-            name
-        }
-        console.log("form submitting",payload)
+  try {
+    const res = await fetch("http://localhost:3000/api/category/update/"+cid, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert("Error: " + errorData.message);
+      return;
+    }
+
+    const data = await res.json();
+    alert("Category updated: " + data.data.name);
+    setName(""); // Reset the form
+  } catch (err) {
+    console.error("Submit error:", err);
+    alert("An unexpected error occurred.");
+  }
 
         
         

@@ -1,70 +1,86 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 
 function AddProduct123() {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [stock, setStock] = useState(0);
+  const [category, setCategory] = useState("");
+  
+  const [categories, setCategories] = useState([]);
 
-     const[name,setName]=useState("")
-     const[price,setPrice]=useState("")
-     const[stock,setStock]=useState("")
-     const[category,setCategory]=useState("")
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const payload = { name, price, stock, category };
 
-     function handleNameChange(e){
-        console.log("value",e.target.value)
-        setName(e.target.value)
-     }
+    try {
+      const res = await fetch("http://localhost:3000/api/product/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-     function handlePriceChange(e){
-        console.log("value",e.target.value)
-        setPrice(e.target.value)
-     }
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert("Error: " + errorData.message);
+        return;
+      }
 
-     function handleStockChange(e){
-        console.log("value",e.target.value)
-        setStock(e.target.value)
-     }
+      const data = await res.json();
+      alert("Product created: " + data.data.name);
+      setName("");
+      setPrice("");
+      setStock(0);
+      setCategory("");
+    } catch (err) {
+      console.error("Submit error:", err);
+      alert("An unexpected error occurred.");
+    }
+  }
 
-     function handleCategoryChange(e){
-        console.log("value",e.target.value)
-        setCategory(e.target.value)
-     }
-
-     async function handlesubmit(e){
-        e.preventDefault()
-
-        const payload={
-            name ,
-            price,
-            stock,
-            category
+  useEffect(() => {
+    async function getAllCategory() {
+      try {
+        const res = await fetch("http://localhost:3000/api/categories");
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
         }
+        const data = await res.json();
+        setCategories(data.data);
+      } catch (err) {
+        console.error("Error fetching categories:", err);
+      }
+    }
 
-        console.log("form submitting",payload)
-        const res = await fetch("http://localhost:3000/api/product/create", {
-         method: "POST",
-        })
-     }
+    getAllCategory();
+  }, []);
+
   return (
-    <div>AddProduct123
+    <div>
+      <h2>Add Product</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Name:</label>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
-        <form onSubmit={handlesubmit}>
+        <label>Price:</label>
+        <input type="text" value={price} onChange={(e) => setPrice(e.target.value)} />
 
-            <label>Name:</label>
-            <input type='=text' value={name} onChange={handleNameChange}/>
+        <label>Stock:</label>
+        <input type="number" value={stock} onChange={(e) => setStock(Number(e.target.value))} />
 
-            <label>Price:</label>
-            <input type='text' value={price} onChange={handlePriceChange}/>
+        <label>Category:</label>
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="">Select a category</option>
+          {categories.map((cat) => (
+            <option key={cat._id} value={cat.name}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
 
-            <label>Stock:</label>
-            <input type='text' value={stock} onChange={handleStockChange}/>
-
-            <label>Category:</label>
-            <input type='text' value={category} onChange={handleCategoryChange}/>
-
-            <button type='submit'>Submit</button>
-
-
-        </form>
+        <button type="submit">Submit</button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default AddProduct123
+export default AddProduct123;
