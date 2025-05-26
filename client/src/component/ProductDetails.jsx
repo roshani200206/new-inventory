@@ -28,7 +28,7 @@ function ProductDetails({ product }) {
   }
 
   const handleAddToCart = () => {
-    addToCart(product, 1); // ✅ add 1 quantity of this product
+    addToCart(product, 1); 
     alert(`${product.name} added to cart.`);
   };
 
@@ -37,7 +37,7 @@ function ProductDetails({ product }) {
       <div>{product.name}</div>
       <Link to={"/EditProduct/" + product._id}>Edit</Link>
       <button onClick={handleDelete}>Delete</button>
-      <button onClick={handleAddToCart}>Add to Cart</button> {/* ✅ New button */}
+      <button onClick={handleAddToCart}>Add to Cart</button> 
     </div>
   );
 }

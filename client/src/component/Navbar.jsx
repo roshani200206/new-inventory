@@ -14,6 +14,7 @@ function Navbar() {
         <Link to ="/product-page">Products</Link>
         <Link to={"/cartPage"}>Cartpage</Link>
         <Link to="/OrderPage">Order</Link>
+          
         <button onClick={logout}>Logout</button>
     </div>
   )

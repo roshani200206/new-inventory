@@ -24,16 +24,24 @@ function LoginPage() {
     <div>
       <h2>Login Page</h2>
       <form onSubmit={handleSubmit}>
-        <label>Email</label>
+        <div>
+        <label>Email: </label>
         <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
 
-        <label>Password</label>
+          <div style={{ marginTop: "10px" }}>
+
+        <label>Password: </label>
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-
-        <button type="submit">Submit</button>
+         </div>
+         <div style={{ marginTop: "15px" }}>
+         <button type="submit">Submit</button>
+          </div>
       </form>
     </div>
   );
 }
 
 export default LoginPage;
+
+

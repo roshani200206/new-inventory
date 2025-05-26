@@ -40,11 +40,15 @@ function AddCategory() {
     <div>AddCategory
 
         <form onSubmit={handlesubmit}>
+         
 
             <label>Name:</label>
             <input type='text' value={name} onChange={handleNameChange}/>
+             <div style={{ marginBottom: "12px" }}>
 
             <button type='submit'>Submit</button>
+            </div>
+
 
 
 

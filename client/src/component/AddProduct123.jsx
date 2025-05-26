@@ -59,15 +59,24 @@ function AddProduct123() {
     <div>
       <h2>Add Product</h2>
       <form onSubmit={handleSubmit}>
+         <div style={{ marginBottom: "12px" }}>
         <label>Name:</label>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+         </div>
 
+
+          <div style={{ marginBottom: "12px" }}>
         <label>Price:</label>
         <input type="text" value={price} onChange={(e) => setPrice(e.target.value)} />
+         </div>
 
+         <div style={{ marginBottom: "12px" }}>
         <label>Stock:</label>
         <input type="number" value={stock} onChange={(e) => setStock(Number(e.target.value))} />
+         </div>
 
+
+         <div style={{ marginBottom: "12px" }}>
         <label>Category:</label>
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="">Select a category</option>
@@ -77,8 +86,13 @@ function AddProduct123() {
             </option>
           ))}
         </select>
+        </div>
 
+
+
+       <div style={{ marginBottom: "12px" }}>
         <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   );
