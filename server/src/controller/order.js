@@ -34,10 +34,16 @@ export async function createOrder (req, res) {
 
     
     for (const item of products) {
+      
       const productExists = await Product.findById(item.product);
       if (!productExists) {
         return res.status(404).json({ message: `Product not found: ${item.product}` });
       }
+      if(productExists.stock < item.quantity){
+         return res.status(404).json({ message: `Product stock low : ${item.product}` });
+      }
+      productExists.stock = productExists.stock - item.quantity
+      await productExists.save()
     }
 
   
