@@ -3,7 +3,6 @@ import { Router } from "express";
 
 import {createOrder, deleteOrder,getAllOrder,getOrderById
 } from "../controller/order.js"
-import { verifyJWT } from "../middleware/auth.js";
 
 
 const router =Router()

@@ -4,8 +4,10 @@ import User from "../model/user.model.js";
 export async function verifyJWT(req, res, next) {
   try {
     const token =
-      req.cookies?.accessToken ||
-      req.headers.authorization?.replace("Bearer ", "");
+      req.cookies?.accessToken
+
+      console.log(token)
+     
 
     if (!token) {
       return res.status(401).json({ message: "Unauthorized: Token not provided" });

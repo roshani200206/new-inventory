@@ -5,6 +5,7 @@ function OrderViewPage() {
   const { oid } = useParams(); 
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     async function fetchOrder() {
@@ -33,6 +34,7 @@ function OrderViewPage() {
     fetchOrder();
   }, [oid]);
 
+  
   if (loading) return <p>Loading...</p>;
   if (!order) return <p>Order not found.</p>;
 
@@ -44,7 +46,7 @@ function OrderViewPage() {
       <p><strong>Payment Type:</strong> {order.payment_type}</p>
       <p><strong>Status:</strong> {order.status}</p>
       <p><strong>Paid:</strong> {order.is_paid ? "Yes" : "No"}</p>
-      <p><strong>Customer:</strong> {order.customer?.name} ({order.customer?.email})</p>
+      <p><strong>Customer:</strong>{order?.customer?.email} ({order?.customer?.username})</p>
 
       <h3>Products:</h3>
       {order.products.map((item, index) => (

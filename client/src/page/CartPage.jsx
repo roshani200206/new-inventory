@@ -1,27 +1,26 @@
 
 import { useState } from "react";
 import { useCart } from "../context/orderItemContext";
+import { useAuth } from "../context/AuthContext";
 
 const CartPage = () => {
   const { cartItems, removeFromCart, total, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const {user}= useAuth()
 
   // Replace with your actual user ID from auth context/session
-  const customerId = "REPLACE_WITH_LOGGED_IN_USER_ID";
+
 
   const handleSubmitOrder = async () => {
-    if (!customerId) {
-      setMessage("User not logged in.");
-      return;
-    }
+ 
 
     setLoading(true);
     setMessage("");
 
     const orderData = {
       total: total.toFixed(2),
-     
+     customer:user._id,
       payment_type: "CASH", // or "CARD"
       status: "CONFIRMED",
       is_paid: true,

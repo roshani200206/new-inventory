@@ -50,7 +50,7 @@ export async function createOrder (req, res) {
 
     const neworder = await Order.create({
       total,
-      customer:"68334a78b5c5b80889fa89ad",
+      customer,
       payment_type,
       status,
       is_paid,
@@ -104,7 +104,7 @@ export  async function getAllOrder(req,res){
    export  async function getOrderById (req,res){
         try {
             const oid = req.params.oid
-            const singleOrder = await Order.findById(oid).populate('products.product', 'name price');
+            const singleOrder = await Order.findById(oid).populate('products.product', 'name price').populate("customer")
   res.status(200).json({
                 message:"success to get  data ",
                 data:singleOrder
