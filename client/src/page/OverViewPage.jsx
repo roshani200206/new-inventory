@@ -33,35 +33,50 @@ function Overview() {
   return (
     <>
       <style>
-        {`
-          .overview-container {
-            display: flex;
-            gap: 1.5rem;
-            padding: 2rem;
-            width: 100%;
-          }
-          .overview-box {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            transition: transform 0.2s ease;
-          }
-          .overview-box:hover {
-            transform: translateY(-5px);
-          }
-          .box-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #2c3e50;
-          }
-          .box-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #27ae60;
-          }
-        `}
+      {`
+.overview-container {
+display: flex;
+
+justify-content: center;
+align-items: stretch;
+gap: 1.5rem;
+padding: 2rem;
+width: 100%;
+box-sizing: border-box;
+}
+
+
+      .overview-box {
+        background-color:rgb(179, 214, 153);
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: transform 0.2s ease;
+        width: 220px;
+        min-height: 120px;
+      }
+
+   
+
+      .box-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: #2c3e50;
+      }
+
+      .box-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #27ae60;
+      }
+
+      @media (max-width: 600px) {
+        .overview-box {
+          width: 100%;
+        }
+      }
+    `}
       </style>
 
       <div className="overview-container">

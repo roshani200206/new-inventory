@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { useCart } from '../context/orderItemContext';
+import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 
 
 function ProductDetails({ product }) {
@@ -34,10 +35,34 @@ function ProductDetails({ product }) {
 
   return (
     <div style={{ display: "flex", gap: "20px", marginBottom: "10px", alignItems: "center" }}>
-      <div>{product.name}</div>
-      <Link to={"/EditProduct/" + product._id}>Edit</Link>
-      <button onClick={handleDelete}>Delete</button>
-      <button onClick={handleAddToCart}>Add to Cart</button> 
+     
+      <Card>
+        <CardContent>
+            <Typography variant="h4" component="div">
+       {product.name}
+      </Typography>
+      <Typography component="p">
+        Stock: <span style={{
+          color:"green"
+        }}>{product.stock}</span>
+      </Typography>
+
+        </CardContent>
+
+        <CardActions>
+          <Button variant='outlined'>
+
+  <Link to={"/EditProduct/" + product._id}>Edit</Link>
+          </Button>
+      <Button variant='outlined' color='error' onClick={handleDelete}>Delete</Button>
+      <Button variant='contained' onClick={handleAddToCart}>Add to Cart</Button> 
+        </CardActions>
+        <CardActions>
+
+        </CardActions>
+      
+    
+      </Card>
     </div>
   );
 }

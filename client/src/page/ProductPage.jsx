@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ProductDetails from '../component/ProductDetails'
 import { Link } from 'react-router'
+import { Button } from '@mui/material'
 
 
 
@@ -46,10 +47,17 @@ function ProductPage() {
 
     console.log("products",products)
   return (
-    <div>ProductPage
+    <div>
+<Button variant='contained'>
 
       <Link to="/AddProduct123">Add Product</Link>
-        <div>
+</Button>
+
+        <div style={{
+          display:"flex",
+          gap:"10px",
+          flexWrap:"wrap"
+        }}>
           
 
        {
