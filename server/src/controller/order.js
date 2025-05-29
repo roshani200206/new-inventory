@@ -66,6 +66,24 @@ export async function createOrder (req, res) {
   }
 };
 
+export async function updateOrder(req,res){
+  try {
+    const oid = req.params.oid
+    const {is_paid,status,payment_type} = req.body
+
+    const toBeUpdatedOrder = await Order.findByIdAndUpdate(oid,{
+      is_paid,
+      status,payment_type
+    },
+    {new:true}
+  )
+   res.status(201).json({ message: 'Order updated successfully.', data: toBeUpdatedOrder });
+    
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+}
+
 
 
 export async function deleteOrder(req,res){
