@@ -23,6 +23,7 @@ import Overview from './page/OverViewPage'
 import CartPage from './page/CartPage'
 import PublicRoute from './component/publicRoute'
 import OrderViewPage from './page/OrderViewPage'
+import ReportPage from './page/ReportPage'
 
 
 
@@ -63,6 +64,7 @@ function App() {
         <Route path='/OrderPage' element={<OrderPage/>}/> 
         <Route path='/cartPage' element={<CartPage/>}/> 
         <Route path='/order/view/:oid' element={<OrderViewPage/>}/> 
+        <Route path='/reports' element={<ReportPage/>}/> 
 
 
 

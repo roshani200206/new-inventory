@@ -36,7 +36,7 @@ function CategoryPage()
 
     setDeletingId(id);
     try {
-      const res = await fetch(`http://localhost:3000/api/categories/${id}`, {
+      const res = await fetch(`http://localhost:3000/api/category/delete/${id}`, {
         method: "DELETE",
       });
 

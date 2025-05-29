@@ -8,8 +8,10 @@ import {
   TableRow,
   Paper,
   Typography,
-  IconButton
+  IconButton,
+  Button
 } from '@mui/material';
+import { Link } from 'react-router';
 
 
 function OrderPage() {
@@ -40,8 +42,27 @@ function OrderPage() {
     getAllOrders();
   }, []);
 
-  const handleDelete = (idToRemove) => {
+  const handleDelete =async (idToRemove) => {
     setOrders(prev => prev.filter(order => order._id !== idToRemove));
+      try {
+        const res = await fetch("http://localhost:3000/api/order/delete/"+idToRemove, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+
+      } catch (err) {
+        console.error(err);
+        alert("Failed to fetch orders.");
+      }
+
   };
 
   return (
@@ -60,6 +81,7 @@ function OrderPage() {
               <TableCell><strong>Status</strong></TableCell>
               <TableCell><strong>Is Paid</strong></TableCell>
 
+
               <TableCell align="center"><strong>Actions</strong></TableCell>
             </TableRow>
           </TableHead>
@@ -73,10 +95,20 @@ function OrderPage() {
                 <TableCell>{order.status}</TableCell>
                 <TableCell>{order.is_paid ? "Yes" : "No"}</TableCell>
               
-                <TableCell align="center">
+                <TableCell style={{
+                  display:"flex",
+                gap:"10px",
+                alignItems:"center",
+                justifyContent:"center"
+                }} align="center" >
+                   <Typography component={"h4"}>
+
+                  <Link to={"/order/view/"+order._id}>View</Link>
+                  </Typography>
                   <IconButton onClick={() => handleDelete(order._id)} color="error">
                     Delete
                   </IconButton>
+                 
                 </TableCell>
               </TableRow>
             ))}

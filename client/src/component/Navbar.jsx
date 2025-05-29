@@ -40,6 +40,8 @@ function Navbar() {
         <Link style={nav} to="/CategoryPage">Category</Link>
         <Link  style={nav} to ="/product-page">Products</Link>
         <Link style={nav} to={"/cartPage"}>Cartpage</Link>
+        <Link style={nav} to={"/reports"}>Report</Link>
+
         <Link style={nav} to="/OrderPage">Order</Link>
       
       </div>
